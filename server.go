@@ -1,7 +1,6 @@
 package main
 
 import (
-	//"fmt"
 	"flag"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/logger"

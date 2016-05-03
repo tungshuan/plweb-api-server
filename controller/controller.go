@@ -14,12 +14,17 @@ func GetCourse(c *iris.Context) {
 	courseId, err := strconv.Atoi(c.Param("courseId"))
 	if err != nil {
 		BadRequest(c, err)
+		return
 	}
 	lessonId, err := strconv.Atoi(c.Param("lessonId"))
 	if err != nil {
 		BadRequest(c, err)
+		return
 	}
-	courseXml := model.GetCourse(courseId, lessonId)
+	courseXml, err := model.GetCourse(courseId, lessonId)
+	if err != nil {
+		BadRequest(c, err)
+	}
 	c.Write(courseXml)
 }
 

@@ -4,13 +4,7 @@ import (
 	"github.com/yuniii/plweb-api-server/db"
 )
 
-type Course struct {
-	COURSE_ID,
-	LESSON_ID int
-	TEXT_XML string
-}
-
-func GetCourse(courseId, lessonId int) string {
+func GetCourse(courseId, lessonId int) (string, error) {
 	stmt, err := db.DB.Prepare("SELECT text_xml FROM COURSE_FILE WHERE course_id= ? AND lesson_id = ?")
 	if err != nil {
 		panic(err)
@@ -20,7 +14,7 @@ func GetCourse(courseId, lessonId int) string {
 	var xmlContent string
 	err = stmt.QueryRow(courseId, lessonId).Scan(&xmlContent)
 	if err != nil {
-		panic(err)
+		return "", err
 	}
-	return xmlContent
+	return xmlContent, nil
 }
