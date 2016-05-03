@@ -1,0 +1,19 @@
+package config
+
+type DBConfig struct {
+	User,
+	Password,
+	Host,
+	Port,
+	DBName string
+}
+
+var (
+	DB_CONFIG = DBConfig{
+		User:     "",
+		Password: "",
+		Host:     "",
+		Port:     "3306",
+		DBName:   "",
+	}
+)
