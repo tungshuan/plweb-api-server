@@ -7,7 +7,7 @@ import (
 func GetCourse(courseId, lessonId int) (string, error) {
 	stmt, err := db.DB.Prepare("SELECT text_xml FROM COURSE_FILE WHERE course_id= ? AND lesson_id = ?")
 	if err != nil {
-		panic(err)
+		return "", err
 	}
 	defer stmt.Close()
 

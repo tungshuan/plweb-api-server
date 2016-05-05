@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/yuniii/plweb-api-server/controller"
@@ -17,5 +18,6 @@ func main() {
 	iris.UseFunc(logger.Default())
 	iris.Get("/", controller.Index)
 	iris.Get("/course/:courseId/:lessonId", controller.GetCourse)
+	fmt.Printf("listen on %s\n", *port)
 	iris.Listen(*port)
 }

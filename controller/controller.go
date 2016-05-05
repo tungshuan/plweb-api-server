@@ -1,9 +1,9 @@
 package controller
 
 import (
+	//"fmt"
 	"github.com/kataras/iris"
 	"github.com/yuniii/plweb-api-server/model"
-	"strconv"
 )
 
 func Index(c *iris.Context) {
@@ -11,23 +11,44 @@ func Index(c *iris.Context) {
 }
 
 func GetCourse(c *iris.Context) {
-	courseId, err := strconv.Atoi(c.Param("courseId"))
-	if err != nil {
-		BadRequest(c, err)
+	courseId, err := c.ParamInt("courseId")
+
+	if !checkErr(err, c) {
 		return
 	}
-	lessonId, err := strconv.Atoi(c.Param("lessonId"))
-	if err != nil {
-		BadRequest(c, err)
+
+	lessonId, err := c.ParamInt("lessonId")
+	if !checkErr(err, c) {
 		return
 	}
+
 	courseXml, err := model.GetCourse(courseId, lessonId)
-	if err != nil {
-		BadRequest(c, err)
+	if !checkErr(err, c) {
+		return
 	}
-	c.Write(courseXml)
+
+	lesson, err := model.ParseCourse(courseXml)
+	if !checkErr(err, c) {
+		return
+	}
+	c.Write(string(lesson))
+	//c.Write(fmt.Sprintf("%+v", lesson))
+	/*err = c.XML(lesson)
+	if !checkErr(err, c) {
+		return
+	}*/
 }
 
-func BadRequest(c *iris.Context, err error) {
-	c.Write(err.Error())
+func checkErr(err error, c *iris.Context) bool {
+	if err != nil {
+		logErr(err)
+		c.Panic()
+		return false
+	}
+	return true
+}
+
+func logErr(err error) {
+	logger := iris.Logger()
+	logger.Printf("!!ERROR!! %s\n", err)
 }
