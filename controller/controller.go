@@ -29,7 +29,7 @@ func GetCourse(c *iris.Context) {
 	if !checkErr(err, c) {
 		return
 	}
-	c.Write(string(lesson))
+	c.JSON(iris.StatusOK, lesson)
 }
 
 func checkErr(err error, c *iris.Context) bool {
