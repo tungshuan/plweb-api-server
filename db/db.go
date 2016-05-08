@@ -3,8 +3,8 @@ package db
 import (
 	"bytes"
 	"database/sql"
+	"github.com/Yuniii/plweb-api-server/config"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/yuniii/plweb-api-server/config"
 )
 
 var (
