@@ -21,3 +21,11 @@ type Lesson struct {
 	Properties []Property `xml:"property"`
 	Files      []File     `xml:"file"`
 }
+
+type Quiz struct {
+	Title       string `json:"title"`
+	Stdout      string `json:"stdout"`
+	Description string `json:"description"`
+	Ans         string `json:"ans"`
+	Part        string `json:"part"`
+}

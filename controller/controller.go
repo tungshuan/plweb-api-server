@@ -11,7 +11,6 @@ func Index(c *iris.Context) {
 
 func GetCourse(c *iris.Context) {
 	courseId, err := c.ParamInt("courseId")
-
 	if !checkErr(err, c) {
 		return
 	}

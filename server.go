@@ -16,8 +16,10 @@ func main() {
 	flag.Parse()
 
 	iris.UseFunc(logger.Default())
+
 	iris.Get("/", controller.Index)
 	iris.Get("/course/:courseId/:lessonId", controller.GetCourse)
+
 	fmt.Printf("listen on %s\n", *port)
 	iris.Listen(*port)
 }

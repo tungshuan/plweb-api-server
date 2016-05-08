@@ -37,9 +37,36 @@ func ParseCourse(xmlContent string) ([]byte, error) {
 		}
 		newXmlContent.Files = append(newXmlContent.Files, File{path, content})
 	}
-	result, err := json.Marshal(newXmlContent)
+	quizzes := groupQuizzes(newXmlContent)
+	result, err := json.Marshal(quizzes)
 
 	return result, nil
+}
+
+func groupQuizzes(lesson Lesson) map[string]Quiz {
+	files := lesson.Files
+	quizzes := make(map[string]Quiz)
+
+	for _, f := range files {
+		dotIndex := strings.LastIndex(f.Path, ".")
+		title := f.Path[:dotIndex]
+		filetype := f.Path[dotIndex:]
+		aQuiz := quizzes[title]
+		aQuiz.Title = title
+
+		if filetype == ".cond" {
+			aQuiz.Stdout = f.Content
+		} else if filetype == ".html" {
+			aQuiz.Description = f.Content
+		} else if filetype == ".part" {
+			aQuiz.Part = f.Content
+		} else {
+			aQuiz.Ans = f.Content
+		}
+		quizzes[title] = aQuiz
+	}
+
+	return quizzes
 }
 
 func isUsefulFileType(path string) bool {
