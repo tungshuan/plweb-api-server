@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/yuniii/plweb-api-server/db"
+	"github.com/Yuniii/plweb-api-server/db"
 )
 
 func GetCourse(courseId, lessonId int) (string, error) {

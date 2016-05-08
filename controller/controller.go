@@ -1,9 +1,8 @@
 package controller
 
 import (
-	//"fmt"
+	"github.com/Yuniii/plweb-api-server/model"
 	"github.com/kataras/iris"
-	"github.com/yuniii/plweb-api-server/model"
 )
 
 func Index(c *iris.Context) {
@@ -32,11 +31,6 @@ func GetCourse(c *iris.Context) {
 		return
 	}
 	c.Write(string(lesson))
-	//c.Write(fmt.Sprintf("%+v", lesson))
-	/*err = c.XML(lesson)
-	if !checkErr(err, c) {
-		return
-	}*/
 }
 
 func checkErr(err error, c *iris.Context) bool {
