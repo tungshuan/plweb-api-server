@@ -23,6 +23,7 @@ type Lesson struct {
 }
 
 type Quiz struct {
+	Id          int    `json:"id"`
 	Title       string `json:"title"`
 	Stdout      string `json:"stdout"`
 	Description string `json:"description"`

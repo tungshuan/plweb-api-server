@@ -11,7 +11,7 @@ var (
 	uselessFile = []string{".plwebenv", ".plwebtest", "diff", ".exe", "execdump", ".class", "typescript", "#save#"}
 )
 
-func ParseCourse(xmlContent string) (map[string]Quiz, error) {
+func ParseCourse(xmlContent string) ([]Quiz, error) {
 	lesson := Lesson{}
 	err := xml.Unmarshal([]byte(xmlContent), &lesson)
 	if err != nil {
@@ -37,7 +37,7 @@ func ParseCourse(xmlContent string) (map[string]Quiz, error) {
 		newXmlContent.Files = append(newXmlContent.Files, File{path, content})
 	}
 	quizzes := groupQuizzes(newXmlContent)
-	return quizzes, nil
+	return mapToArray(quizzes), nil
 }
 
 func groupQuizzes(lesson Lesson) map[string]Quiz {
@@ -64,6 +64,17 @@ func groupQuizzes(lesson Lesson) map[string]Quiz {
 	}
 
 	return quizzes
+}
+
+func mapToArray(quizMap map[string]Quiz) []Quiz {
+	result := make([]Quiz, len(quizMap))
+	i := 0
+	for _, val := range quizMap {
+		result[i] = val
+		result[i].Id = (i + 1)
+		i++
+	}
+	return result
 }
 
 func isUsefulFileType(path string) bool {
