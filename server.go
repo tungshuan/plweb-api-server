@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/Yuniii/plweb-api-server/controller"
 	"github.com/kataras/iris"
+	"github.com/kataras/iris/middleware/cors"
 	"github.com/kataras/iris/middleware/logger"
 )
 
@@ -16,6 +17,7 @@ func main() {
 	flag.Parse()
 
 	iris.UseFunc(logger.Default())
+	iris.Use(cors.DefaultCors())
 
 	iris.Get("/", controller.Index)
 	iris.Get("/course/:courseId/:lessonId", controller.GetCourse)
