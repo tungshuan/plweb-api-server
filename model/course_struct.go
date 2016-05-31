@@ -20,13 +20,21 @@ type Lesson struct {
 	Title      string     `xml:"title"`
 	Properties []Property `xml:"property"`
 	Files      []File     `xml:"file"`
+	Tasks      []Task     `xml:"task"`
 }
 
 type Quiz struct {
 	Id          int    `json:"id"`
+	Qid         int    `json:"qid"`
+	Seq         int    `json:"seq"`
 	Title       string `json:"title"`
 	Stdout      string `json:"stdout"`
 	Description string `json:"description"`
 	Ans         string `json:"ans"`
 	Part        string `json:"part"`
+}
+
+type Task struct {
+	Id         int        `xml:"id"`
+	Properties []Property `xml:"property"`
 }

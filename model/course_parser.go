@@ -30,13 +30,14 @@ func ParseCourse(xmlContent string) ([]Quiz, error) {
 			continue
 		}
 
-		content = DecodeStr(lesson.Files[i].Content)
+		content = decodeStr(lesson.Files[i].Content)
 		if strings.Contains(path, ".cond") {
 			content = cd.ConvString(content)
 		}
 		newXmlContent.Files = append(newXmlContent.Files, File{path, content})
 	}
 	quizzes := groupQuizzes(newXmlContent)
+	parseQid(lesson, quizzes)
 	return mapToArray(quizzes), nil
 }
 
@@ -66,6 +67,29 @@ func groupQuizzes(lesson Lesson) map[string]Quiz {
 	return quizzes
 }
 
+func parseQid(lesson Lesson, quizzes map[string]Quiz) {
+	var task Task
+	seq := 1
+
+	for i := 0; i < len(lesson.Tasks); i++ {
+		task = lesson.Tasks[i]
+		for j := 0; j < len(task.Properties); j++ {
+			if task.Properties[j].Key != "ExName" {
+				continue
+			}
+			for k, _ := range quizzes {
+				if k == task.Properties[j].Value {
+					aQuiz := quizzes[k]
+					aQuiz.Seq = seq
+					seq++
+					aQuiz.Qid = lesson.Tasks[i].Id
+					quizzes[k] = aQuiz
+				}
+			}
+		}
+	}
+}
+
 func mapToArray(quizMap map[string]Quiz) []Quiz {
 	result := make([]Quiz, len(quizMap))
 	i := 0
@@ -91,12 +115,12 @@ func isUsefulFileType(path string) bool {
 	return true
 }
 
-func Decode(base64str string) []byte {
+func decode(base64str string) []byte {
 	result, _ := base64.StdEncoding.DecodeString(base64str)
 	return result
 }
 
-func DecodeStr(base64str string) string {
-	result := Decode(base64str)
+func decodeStr(base64str string) string {
+	result := decode(base64str)
 	return string(result)
 }
