@@ -93,12 +93,28 @@ func parseQid(lesson Lesson, quizzes map[string]Quiz) {
 func mapToArray(quizMap map[string]Quiz) []Quiz {
 	result := make([]Quiz, len(quizMap))
 	i := 0
+	var seq int
 	for _, val := range quizMap {
-		result[i] = val
-		result[i].Id = (i + 1)
+		seq = val.Seq - 1
+		if seq < 0 {
+			continue
+		}
+		result[seq] = val
+		result[seq].Id = (i + 1)
 		i++
 	}
-	return result
+	trimmed := trimArray(result)
+	return trimmed
+}
+
+func trimArray(quizzes []Quiz) []Quiz {
+	var trimmed []Quiz
+	for i := range quizzes {
+		if quizzes[i].Seq > 0 {
+			trimmed = append(trimmed, quizzes[i])
+		}
+	}
+	return trimmed
 }
 
 func isUsefulFileType(path string) bool {
