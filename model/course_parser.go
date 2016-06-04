@@ -19,7 +19,7 @@ func ParseCourse(xmlContent string) ([]Quiz, error) {
 	}
 
 	var path, content string
-	newXmlContent := Lesson{}
+	newXMLContent := Lesson{}
 
 	cd, _ := iconv.Open("UTF-8", "big5")
 	defer cd.Close()
@@ -34,9 +34,9 @@ func ParseCourse(xmlContent string) ([]Quiz, error) {
 		if strings.Contains(path, ".cond") {
 			content = cd.ConvString(content)
 		}
-		newXmlContent.Files = append(newXmlContent.Files, File{path, content})
+		newXMLContent.Files = append(newXMLContent.Files, File{path, content})
 	}
-	quizzes := groupQuizzes(newXmlContent)
+	quizzes := groupQuizzes(newXMLContent)
 	parseQid(lesson, quizzes)
 	return mapToArray(quizzes), nil
 }
@@ -77,12 +77,12 @@ func parseQid(lesson Lesson, quizzes map[string]Quiz) {
 			if task.Properties[j].Key != "ExName" {
 				continue
 			}
-			for k, _ := range quizzes {
+			for k := range quizzes {
 				if k == task.Properties[j].Value {
 					aQuiz := quizzes[k]
 					aQuiz.Seq = seq
 					seq++
-					aQuiz.Qid = lesson.Tasks[i].Id
+					aQuiz.Qid = lesson.Tasks[i].ID
 					quizzes[k] = aQuiz
 				}
 			}
@@ -100,7 +100,7 @@ func mapToArray(quizMap map[string]Quiz) []Quiz {
 			continue
 		}
 		result[seq] = val
-		result[seq].Id = (i + 1)
+		result[seq].ID = (i + 1)
 		i++
 	}
 	trimmed := trimArray(result)

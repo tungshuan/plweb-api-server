@@ -20,7 +20,7 @@ func main() {
 	iris.Use(cors.DefaultCors())
 
 	iris.Get("/", controller.Index)
-	iris.Get("/course/:courseId/:lessonId", controller.GetCourse)
+	iris.Get("/course/:courseID/:lessonID", controller.GetCourse)
 
 	fmt.Printf("listen on %s\n", *port)
 	iris.Listen(*port)

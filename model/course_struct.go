@@ -16,7 +16,7 @@ type File struct {
 
 type Lesson struct {
 	XMLName    xml.Name   `xml:"project"`
-	Id         int        `xml:"id"`
+	ID         int        `xml:"id"`
 	Title      string     `xml:"title"`
 	Properties []Property `xml:"property"`
 	Files      []File     `xml:"file"`
@@ -24,7 +24,7 @@ type Lesson struct {
 }
 
 type Quiz struct {
-	Id          int    `json:"id"`
+	ID          int    `json:"id"`
 	Qid         int    `json:"qid"`
 	Seq         int    `json:"seq"`
 	Title       string `json:"title"`
@@ -35,6 +35,6 @@ type Quiz struct {
 }
 
 type Task struct {
-	Id         int        `xml:"id"`
+	ID         int        `xml:"id"`
 	Properties []Property `xml:"property"`
 }

@@ -10,22 +10,22 @@ func Index(c *iris.Context) {
 }
 
 func GetCourse(c *iris.Context) {
-	courseId, err := c.ParamInt("courseId")
+	courseID, err := c.ParamInt("courseID")
 	if !checkErr(err, c) {
 		return
 	}
 
-	lessonId, err := c.ParamInt("lessonId")
+	lessonID, err := c.ParamInt("lessonID")
 	if !checkErr(err, c) {
 		return
 	}
 
-	courseXml, err := model.GetCourse(courseId, lessonId)
+	courseXML, err := model.GetCourse(courseID, lessonID)
 	if !checkErr(err, c) {
 		return
 	}
 
-	lesson, err := model.ParseCourse(courseXml)
+	lesson, err := model.ParseCourse(courseXML)
 	if !checkErr(err, c) {
 		return
 	}
