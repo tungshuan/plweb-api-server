@@ -22,6 +22,8 @@ func main() {
 	iris.Get("/", controller.Index)
 	iris.Get("/course/:courseID/:lessonID", controller.GetCourse)
 
+	iris.Post("/submit/:classID/:courseID/:lessonID/:qn", controller.SubmitCode)
+
 	fmt.Printf("listen on %s\n", *port)
 	iris.Listen(*port)
 }

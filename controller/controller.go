@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/Yuniii/plweb-api-server/model"
 	"github.com/kataras/iris"
+	"strconv"
 )
 
 func Index(c *iris.Context) {
@@ -30,6 +31,51 @@ func GetCourse(c *iris.Context) {
 		return
 	}
 	c.JSON(iris.StatusOK, lesson)
+}
+
+func SubmitCode(c *iris.Context) {
+	classID, err := c.ParamInt("classID")
+	if !checkErr(err, c) {
+		return
+	}
+
+	courseID, err := c.ParamInt("courseID")
+	if !checkErr(err, c) {
+		return
+	}
+
+	lessonID, err := c.ParamInt("lessonID")
+	if !checkErr(err, c) {
+		return
+	}
+
+	qn, err := c.ParamInt("qn")
+	if !checkErr(err, c) {
+		return
+	}
+
+	code := c.PostFormValue("code")
+	userID, err := strconv.Atoi(c.PostFormValue("uid"))
+	if !checkErr(err, c) {
+		return
+	}
+
+	submission := model.UserSubmission{
+		classID,
+		courseID,
+		lessonID,
+		qn,
+		userID,
+		code,
+	}
+	err = model.SubmitCode(submission)
+
+	if !checkErr(err, c) {
+		c.Write(err.Error())
+		return
+	}
+
+	c.Write("ok")
 }
 
 func checkErr(err error, c *iris.Context) bool {

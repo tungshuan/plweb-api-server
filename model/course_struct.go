@@ -4,6 +4,15 @@ import (
 	"encoding/xml"
 )
 
+type UserSubmission struct {
+	ClassID,
+	CourseID,
+	LessonID,
+	Qn,
+	UserID int
+	Code string
+}
+
 type Property struct {
 	Key   string `xml:"key"`
 	Value string `xml:"value"`
