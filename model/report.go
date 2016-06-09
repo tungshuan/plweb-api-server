@@ -48,7 +48,7 @@ func insertReport(sql string, subm UserSubmission) error {
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(subm.ClassID, subm.CourseID, subm.LessonID, subm.Qn, subm.UserID, subm.Code)
+	_, err = stmt.Exec(subm.ClassID, subm.CourseID, subm.LessonID, subm.Qn, subm.UserID, subm.Code, subm.Type)
 	if err != nil {
 		return err
 	}
@@ -63,7 +63,7 @@ func updateReport(sql string, subm UserSubmission) error {
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(subm.Code, subm.ClassID, subm.CourseID, subm.LessonID, subm.Qn, subm.UserID)
+	_, err = stmt.Exec(subm.Code, subm.Type, subm.ClassID, subm.CourseID, subm.LessonID, subm.Qn, subm.UserID)
 	if err != nil {
 		return err
 	}
@@ -78,10 +78,10 @@ func buildSubmitSQL() (string, string, string) {
 	b1.WriteString("SELECT EXISTS(SELECT * FROM ST_REPORTS")
 	b1.WriteString(where + ")")
 
-	b2.WriteString("UPDATE ST_REPORTS SET code=?, type='test_ok'")
+	b2.WriteString("UPDATE ST_REPORTS SET code=?, type=?")
 	b2.WriteString(where)
 
 	b3.WriteString("INSERT INTO ST_REPORTS(class_id, course_id, lesson_id, question_id, user_id, code, type) ")
-	b3.WriteString("VALUES(?, ?, ?, ?, ?, ?, 'test_ok')")
+	b3.WriteString("VALUES(?, ?, ?, ?, ?, ?, ?)")
 	return b1.String(), b2.String(), b3.String()
 }

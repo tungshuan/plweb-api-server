@@ -7,7 +7,7 @@ import (
 )
 
 func Index(c *iris.Context) {
-	c.Write("plweb api server")
+	c.Write("plweb api server v0609")
 }
 
 func GetCourse(c *iris.Context) {
@@ -56,6 +56,7 @@ func SubmitCode(c *iris.Context) {
 
 	code := c.PostFormValue("code")
 	userID, err := strconv.Atoi(c.PostFormValue("uid"))
+	t := c.PostFormValue("type")
 	if !checkErr(err, c) {
 		return
 	}
@@ -67,6 +68,7 @@ func SubmitCode(c *iris.Context) {
 		qn,
 		userID,
 		code,
+		t,
 	}
 	err = model.SubmitCode(submission)
 
