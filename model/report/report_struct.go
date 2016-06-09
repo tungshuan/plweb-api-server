@@ -6,5 +6,6 @@ type UserSubmission struct {
 	LessonID,
 	Qn,
 	UserID int
-	Code string
+	Code,
+	Type string
 }
