@@ -1,18 +1,8 @@
-package model
+package course
 
 import (
 	"encoding/xml"
 )
-
-type UserSubmission struct {
-	ClassID,
-	CourseID,
-	LessonID,
-	Qn,
-	UserID int
-	Code,
-	Type  string
-}
 
 type Property struct {
 	Key   string `xml:"key"`

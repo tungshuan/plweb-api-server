@@ -1,4 +1,4 @@
-package model
+package course
 
 import (
 	"encoding/base64"

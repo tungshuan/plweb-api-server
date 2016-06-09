@@ -1,7 +1,8 @@
 package controller
 
 import (
-	"github.com/Yuniii/plweb-api-server/model"
+	"github.com/Yuniii/plweb-api-server/model/course"
+	"github.com/Yuniii/plweb-api-server/model/report"
 	"github.com/kataras/iris"
 	"strconv"
 )
@@ -21,12 +22,12 @@ func GetCourse(c *iris.Context) {
 		return
 	}
 
-	courseXML, err := model.GetCourse(courseID, lessonID)
+	courseXML, err := course.GetCourse(courseID, lessonID)
 	if !checkErr(err, c) {
 		return
 	}
 
-	lesson, err := model.ParseCourse(courseXML)
+	lesson, err := course.ParseCourse(courseXML)
 	if !checkErr(err, c) {
 		return
 	}
@@ -61,7 +62,7 @@ func SubmitCode(c *iris.Context) {
 		return
 	}
 
-	submission := model.UserSubmission{
+	submission := report.UserSubmission{
 		classID,
 		courseID,
 		lessonID,
@@ -70,7 +71,7 @@ func SubmitCode(c *iris.Context) {
 		code,
 		t,
 	}
-	err = model.SubmitCode(submission)
+	err = report.SubmitCode(submission)
 
 	if !checkErr(err, c) {
 		c.Write(err.Error())

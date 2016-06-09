@@ -1,4 +1,4 @@
-package model
+package course
 
 import (
 	"github.com/Yuniii/plweb-api-server/db"
