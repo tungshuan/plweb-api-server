@@ -16,7 +16,7 @@ var (
 func main() {
 	flag.Parse()
 
-	iris.UseFunc(logger.Default())
+	iris.Use(logger.New(iris.Logger()))
 	iris.Use(cors.DefaultCors())
 
 	iris.Get("/", controller.Index)
