@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"github.com/Yuniii/plweb-api-server/controller"
-	"github.com/kataras/iris"
-	"github.com/kataras/iris/middleware/cors"
-	"github.com/kataras/iris/middleware/logger"
+	"gopkg.in/kataras/iris.v6"
+	"gopkg.in/kataras/iris.v6/adaptors/cors"
+	"gopkg.in/kataras/iris.v6/middleware/logger"
 )
 
 var (
