@@ -1,7 +1,7 @@
 package course
 
 import (
-	"github.com/Yuniii/plweb-api-server/db"
+	"github.com/tungshuan/plweb-api-server/db"
 )
 
 func GetCourse(courseID, lessonID int) (string, error) {
