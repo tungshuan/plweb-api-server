@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"github.com/Yuniii/plweb-api-server/model/course"
-	"github.com/Yuniii/plweb-api-server/model/report"
-	"github.com/kataras/iris"
+	"github.com/tungshuan/plweb-api-server/model/course"
+	"github.com/tungshuan/plweb-api-server/model/report"
+	"gopkg.in/kataras/iris.v6"
 	"strconv"
 )
 
