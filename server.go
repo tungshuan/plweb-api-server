@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"github.com/tungshuan/plweb-api-server/controller"
-	"gopkg.in/kataras/iris.v6"
-	"gopkg.in/kataras/iris.v6/adaptors/cors"
-	"gopkg.in/kataras/iris.v6/middleware/logger"
+	"github.com/kataras/iris"
+	"github.com/kataras/iris/adaptors/cors"
+	"github.com/kataras/iris/middleware/logger"
 )
 
 var (
