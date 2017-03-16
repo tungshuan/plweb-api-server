@@ -3,7 +3,7 @@ package controller
 import (
 	"github.com/tungshuan/plweb-api-server/model/course"
 	"github.com/tungshuan/plweb-api-server/model/report"
-	"gopkg.in/kataras/iris.v6"
+	"github.com/kataras/iris"
 	"strconv"
 )
 
